@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Modal, View, Text, Switch, Button } from 'react-native';
 import Slider from '@react-native-community/slider';
-import { styles } from './styles';
+import { styles } from './mobileStyles';
 import { SettingsContext } from './settingsContext';
 
 const AccessibilitySettings = ({ isVisible, onClose }) => {

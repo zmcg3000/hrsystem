@@ -33,7 +33,7 @@ const TopBar = ({ canGoBack, openSettings }) => {
     <View style={styles.topBar}>
       <View style={logoContainerStyle}>
         <Image
-          source={require('./images/logo.png')}
+          source={require('./assets/logo.png')}
           resizeMode="contain"
           style={styles.topBarLogo}
         />
@@ -64,7 +64,7 @@ export default function App() {
       try {
         await SplashScreen.preventAutoHideAsync();
         await Font.loadAsync({
-          'Arial': require('./assets/fonts/Arial_Regular/Arial_Regular.ttf'),
+          'Arial': require('./assets/Arial_Regular/Arial_Regular.ttf'),
         });
         setFontsLoaded(true);
       } catch (e) {

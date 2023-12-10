@@ -24,9 +24,9 @@ function AddUpdateScreen({ route, navigation }) {
     // Effect to fetch data if in edit mode
     useEffect(() => {
         if (isEditing) {
-            console.log(`Fetching URL: https://2642-180-150-7-92.ngrok-free.app/people/${staffId}`);
+            console.log(`Fetching URL: https://3005-180-150-7-92.ngrok-free.app/people/${staffId}`);
             // Fetch staff member's data for editing
-            fetch(`https://2642-180-150-7-92.ngrok-free.app/people/${staffId}`)
+            fetch(`https://3005-180-150-7-92.ngrok-free.app/people/${staffId}`)
                 .then(response => response.json())
                 .then(data => {
                     // Update state with fetched data
@@ -61,7 +61,7 @@ function AddUpdateScreen({ route, navigation }) {
 
         // Determine the HTTP method based on add or edit mode
         const method = isEditing ? 'PUT' : 'POST';
-        const url = `https://2642-180-150-7-92.ngrok-free.app/people${isEditing ? `/${staffId}` : ''}`;
+        const url = `https://3005-180-150-7-92.ngrok-free.app/people${isEditing ? `/${staffId}` : ''}`;
 
         // API call to save the staff member data
         fetch(url, {
@@ -94,7 +94,7 @@ function AddUpdateScreen({ route, navigation }) {
     // Function to handle delete operation
     const handleDelete = () => {
         if (isEditing) {
-            fetch(`https://2642-180-150-7-92.ngrok-free.app/people/${staffId}`, {
+            fetch(`https://3005-180-150-7-92.ngrok-free.app/people/${staffId}`, {
                 method: 'DELETE',
             })
                 .then(response => {

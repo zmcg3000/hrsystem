@@ -2,7 +2,7 @@
 export const fetchEmployeeData = async (employeeId) => {
     try {
         // Fetching employee details from the server
-        const employeeResponse = await fetch(`https://2642-180-150-7-92.ngrok-free.app/people/${employeeId}`);
+        const employeeResponse = await fetch(`https://3005-180-150-7-92.ngrok-free.app/people/${employeeId}`);
         if (!employeeResponse.ok) {
             // Handling response errors
             const errorText = await employeeResponse.text();
@@ -13,7 +13,7 @@ export const fetchEmployeeData = async (employeeId) => {
         const employeeData = await employeeResponse.json();
 
         // Fetching department details
-        const departmentResponse = await fetch(`https://2642-180-150-7-92.ngrok-free.app/departments`);
+        const departmentResponse = await fetch(`https://3005-180-150-7-92.ngrok-free.app/departments`);
         if (!departmentResponse.ok) {
             // Handling response errors
             const errorText = await departmentResponse.text();

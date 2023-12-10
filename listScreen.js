@@ -17,7 +17,7 @@ function ListScreen({ navigation }) {
     // Function to fetch people data from the server
     const fetchPeopleData = async () => {
         try {
-            const response = await fetch('https://2642-180-150-7-92.ngrok-free.app/people');
+            const response = await fetch('https://3005-180-150-7-92.ngrok-free.app/people');
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error('Error response text:', errorText); // Log the error response

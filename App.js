@@ -1,33 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image, Pressable } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Image, Pressable, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ListScreen from './listScreen';
 import ProfileScreen from './profileScreen';
 import AddUpdateScreen from './addUpdateScreen';
-import { styles, logoHeight } from './mobileStyles.js';
+import mobileStyles from './mobileStyles.js';
+import tabletStyles from './tabletStyles.js';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import AccessibilitySettings from './accessibilitySettings';
 import { SettingsProvider } from './settingsContext';
+import Orientation from 'react-native-orientation-locker'; // Import Orientation
 
-// Custom TopBar component used in the navigation header
-const TopBar = ({ canGoBack, openSettings }) => {
-  // Define the base styles for the logo and icon containers
-  let logoContainerStyle = styles.topBarLogoContainer;
-  let iconContainerStyle = styles.iconContainer;
+const Stack = createNativeStackNavigator();
 
-  // Adjust styles based on the presence of the back arrow in the navigation
-  if (!canGoBack) {
-    logoContainerStyle = { ...logoContainerStyle, marginRight: 350 };
-    iconContainerStyle = { ...iconContainerStyle, right: 10 };
-  }
-
-  if (canGoBack) {
-    logoContainerStyle = { ...styles.topBarLogoContainerWithBack, marginLeft: -113 };
-    iconContainerStyle = { ...iconContainerStyle, right: -285 };
-  }
+const TopBar = ({ navigation, openSettings, styles }) => {
+  const canGoBack = navigation && navigation.canGoBack();
+  const logoContainerStyle = canGoBack ? styles.topBarLogoContainerWithBack : styles.topBarLogoContainer;
+  const gearIconStyle = canGoBack ? styles.gearIconContainerWithBack : styles.gearIconContainer;
 
   return (
     <View style={styles.topBar}>
@@ -35,30 +27,54 @@ const TopBar = ({ canGoBack, openSettings }) => {
         <Image
           source={require('./assets/logo.png')}
           resizeMode="contain"
-          style={styles.topBarLogo}
+          style={styles.topBarLogoImage}
         />
       </View>
-      <View style={iconContainerStyle}>
-        <Pressable onPress={openSettings}>
-          <Icon name="settings" size={24} color="#000" />
-        </Pressable>
-      </View>
+      <Pressable onPress={openSettings} style={gearIconStyle}>
+        <Icon name="settings" size={24} color="#000" />
+      </Pressable>
     </View>
   );
 };
 
-const Stack = createNativeStackNavigator();
-
 export default function App() {
-  // State for checking if custom fonts are loaded
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  // State to control the visibility of the accessibility settings modal
   const [settingsVisible, setSettingsVisible] = useState(false);
 
-  // Function to open the accessibility settings modal
+  // Determine initial orientation and style
+  const deviceWidth = Dimensions.get('window').width;
+  const deviceHeight = Dimensions.get('window').height;
+  const isTablet = deviceWidth > 768; // Adjust this value for tablet size if needed
+  const initialStyles = isTablet ? tabletStyles : mobileStyles;
+  const [currentStyles, setCurrentStyles] = useState(initialStyles);
+
   const openSettings = () => setSettingsVisible(true);
 
-  // Load custom fonts and handle splash screen
+  const handleOrientationChange = useCallback(() => {
+    const newDeviceWidth = Dimensions.get('window').width;
+    const newDeviceHeight = Dimensions.get('window').height;
+    const newIsTablet = newDeviceWidth > 768; // Re-check tablet size if needed
+
+    setCurrentStyles(newIsTablet ? tabletStyles : mobileStyles);
+  }, []);
+
+  useEffect(() => {
+    // Lock to landscape if tablet
+    if (isTablet) {
+      Orientation.lockToLandscape();
+    }
+
+    // Set initial styles and listen for orientation changes
+    handleOrientationChange();
+    Dimensions.addEventListener('change', handleOrientationChange);
+
+    // Cleanup
+    return () => {
+      Dimensions.removeEventListener('change', handleOrientationChange);
+      Orientation.unlockAllOrientations(); // Unlock orientation on unmount
+    };
+  }, [handleOrientationChange, isTablet]);
+
   useEffect(() => {
     async function loadFonts() {
       try {
@@ -76,22 +92,19 @@ export default function App() {
 
     loadFonts();
   }, []);
-  // Render nothing until fonts are loaded
+
   if (!fontsLoaded) {
     return null;
   }
-  // Main app component structure
+
   return (
     <SettingsProvider>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={({ navigation }) => ({
-            headerTitle: (props) => (
-              <TopBar canGoBack={navigation.canGoBack()} openSettings={openSettings} {...props} />
-            ),
-            headerStyle: {
-              height: logoHeight,
-            },
+            headerTitle: () => <TopBar navigation={navigation} openSettings={openSettings} styles={currentStyles} />,
+            headerStyle: { height: currentStyles.logoHeight },
+            headerLeft: null,
           })}
         >
           <Stack.Screen name="List" component={ListScreen} />

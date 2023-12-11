@@ -82,34 +82,65 @@ const textStyles = {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        paddingHorizontal: RFPercentage(2),
     },
     topBarPlaceholder: {
 
     },
     topBarSpacer: {
-        width: 50,
+        flex: 1,
     },
     topBarText: {
         fontSize: RFValue(24),
         color: colors.roiCharcoal,
         fontFamily: 'Arial',
     },
-    topBarLogo: {
+    topBarLogoImage: {
         width: RFPercentage(18),
         height: logoHeight,
-        paddingBottom: RFPercentage(1),
     },
-    topBarLogoContainer: {
+    topBarLogoFirstPage: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
+        marginLeft: RFPercentage(30),
     },
-    topBarIcon: {
+    topBarLogoContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: RFPercentage(22),
+    },
+    topBarLogoContainerWithBack: {
+        flexShrink: 1,
+        flexGrow: 0,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingLeft: RFPercentage(5.9),
+    },
+    gearIconContainer: {
         position: 'absolute',
-        paddingRight: 20,
-        right: 10,
-        top: '50%',
-        transform: [{ translateY: -12 }],
+        right: RFPercentage(-21),
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+    },
+
+    gearIconContainerWithBack: {
+        position: 'absolute',
+        right: RFPercentage(-12),
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+    },
+    gearIcon: {
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
     },
     modalBackground: {
         flex: 1,
@@ -238,7 +269,7 @@ const layoutStyles = {
         flex: 1,
     },
     safeArea: {
-        height: 15,
+        height: RFPercentage(2),
         flex: 0,
         backgroundColor: 'transparent',
     },
@@ -248,37 +279,6 @@ const layoutStyles = {
 export const styles = StyleSheet.create({
     ...textStyles,
     ...layoutStyles,
-    // Additional styles specific to components
-    topBarLogoContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1,
-        height: logoHeight,
-        marginRight: 50,
-    },
-    topBarLogoContainerWithBack: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: -30,
-        flex: 1,
-    },
-    iconContainer: {
-        paddingLeft: 15,
-        paddingRight: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 50,
-        position: 'absolute',
-        right: 10,
-        height: logoHeight,
-    },
-    topBarLogo: {
-        width: RFPercentage(18),
-        height: logoHeight,
-        resizeMode: 'contain',
-        marginLeft: RFPercentage(47),
-    },
-    list: {
-        flex: 1,
-    },
 });
+
+export default styles;

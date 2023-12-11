@@ -8,7 +8,7 @@ const scale = deviceWidth / baseWidth;
 
 // Constants for logo and navbar dimensions adjusted for tablet
 export const logoHeight = deviceWidth * 0.3; // slightly larger for tablet
-export const navbarHeight = Dimensions.get('window').height * 0.1; // slightly larger for tablet
+export const navbarHeight = Dimensions.get('window').height * 0.05; // slightly larger for tablet
 
 // Color scheme for the app, same as mobileStyles.js
 const colors = {
@@ -183,10 +183,38 @@ const layoutStyles = {
         flex: 1,
     },
     safeArea: {
-        height: RFPercentage(2 * scale),
+        height: RFPercentage(2), // Adjust as needed
         flex: 0,
         backgroundColor: 'transparent',
+        // ...other styles as needed
     },
+    topBarLogoContainer: {
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        flex: 1,
+        marginLeft: 50, // Adjust as needed
+    },
+    topBarLogoContainerWithBack: {
+        // Similar adjustments as topBarLogoContainer
+        // ...other styles as needed
+    },
+    gearIconContainer: {
+        position: 'absolute',
+        right: 10, // Adjust as needed to align to the far right
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        // ...other styles as needed
+    },
+    gearIconContainerWithBack: {
+        // Similar adjustments as gearIconContainer
+        // ...other styles as needed
+    },
+    navbarHeight: {
+        height: 10,
+    }
+
+
 };
 
 

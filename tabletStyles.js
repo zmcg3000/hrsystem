@@ -6,9 +6,10 @@ const baseWidth = 768;
 const deviceWidth = Dimensions.get('window').width;
 const scale = deviceWidth / baseWidth;
 
-// Constants for logo and navbar dimensions adjusted for tablet
-export const logoHeight = deviceWidth * 0.3; // slightly larger for tablet
-export const navbarHeight = Dimensions.get('window').height * 0.05; // slightly larger for tablet
+// Constants for logo dimensions
+const logoWidth = 424; // Add this line
+const logoHeight = deviceWidth * 0.1;
+const navbarHeight = Dimensions.get('window').height * 0.03;
 
 // Color scheme for the app, same as mobileStyles.js
 const colors = {
@@ -80,6 +81,99 @@ const textStyles = {
         fontWeight: 'bold',
         fontFamily: 'Arial',
         marginTop: RFPercentage(2 * scale),
+    },
+    topBar: {
+        height: logoHeight,
+        backgroundColor: colors.white,
+        flexDirection: 'row',
+        alignItems: 'center',
+        position: 'relative',
+        paddingHorizontal: RFPercentage(2),
+    },
+    logoContainerStyle: {
+        paddingLeft: RFPercentage(50),
+    },
+    topBarPlaceholder: {
+
+    },
+    topBarSpacer: {
+        flex: 1,
+    },
+    topBarText: {
+        fontSize: RFValue(24),
+        color: colors.roiCharcoal,
+        fontFamily: 'Arial',
+    },
+    topBarLogoImage: {
+        width: RFPercentage(18),
+        height: logoHeight,
+    },
+    topBarLogoFirstPage: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: RFPercentage(50),
+    },
+    topBarLogoContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: RFPercentage(49.5),
+    },
+    topBarLogoContainerWithBack: {
+        flexShrink: 1,
+        flexGrow: 0,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingLeft: RFPercentage(35),
+    },
+    gearIconContainer: {
+        position: 'absolute',
+        right: RFPercentage(-49),
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+    },
+    gearIconContainerWithBack: {
+        position: 'absolute',
+        right: RFPercentage(-40),
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+    },
+    gearIcon: {
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
+    modalBackground: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        width: '50%',
+        elevation: 20,
+    },
+    modalBackdrop: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    },
+    modalButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        marginTop: 20,
     },
 };
 
@@ -183,38 +277,10 @@ const layoutStyles = {
         flex: 1,
     },
     safeArea: {
-        height: RFPercentage(2), // Adjust as needed
         flex: 0,
         backgroundColor: 'transparent',
-        // ...other styles as needed
+        paddingBottom: 50,
     },
-    topBarLogoContainer: {
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        flex: 1,
-        marginLeft: 50, // Adjust as needed
-    },
-    topBarLogoContainerWithBack: {
-        // Similar adjustments as topBarLogoContainer
-        // ...other styles as needed
-    },
-    gearIconContainer: {
-        position: 'absolute',
-        right: 10, // Adjust as needed to align to the far right
-        top: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        // ...other styles as needed
-    },
-    gearIconContainerWithBack: {
-        // Similar adjustments as gearIconContainer
-        // ...other styles as needed
-    },
-    navbarHeight: {
-        height: 10,
-    }
-
-
 };
 
 

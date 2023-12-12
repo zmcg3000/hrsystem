@@ -1,10 +1,13 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { Text, View, FlatList, TextInput, Pressable } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import CustomTabBar from './customTabBar.js';
 import { styles } from './mobileStyles.js';
+import { SettingsContext } from './settingsContext';
 
 function ListScreen({ navigation }) {
+    const { settings } = useContext(SettingsContext);
+    const { textSize } = settings;
     // State for managing search query input
     const [searchQuery, setSearchQuery] = useState('');
     // State to hold the fetched people data
@@ -75,7 +78,7 @@ function ListScreen({ navigation }) {
             style={styles.listItem}
             onPress={() => navigation.navigate('Profile', { staffId: item.Id })}
         >
-            <Text style={styles.listItemText}>{item.Name}</Text>
+            <Text style={[styles.listItemText, { fontSize: textSize }]}>{item.Name}</Text>
         </Pressable>
     );
 

@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, Pressable, ScrollView, SafeAreaView } from 'react-native';
 import { fetchEmployeeData } from './dataManager.js';
 import CustomTabBar from './customTabBar.js';
 import { styles } from './mobileStyles.js';
+import { SettingsContext } from './settingsContext';
+
 
 function ProfileScreen({ route, navigation }) {
+    const { settings } = useContext(SettingsContext);
+    const { textSize } = settings;
     // Get staffId from navigation parameters
     const { staffId } = route.params;
     // State to store employee data
@@ -32,15 +36,16 @@ function ProfileScreen({ route, navigation }) {
         <SafeAreaView style={styles.mainContainer}>
             <ScrollView style={styles.container}>
                 <View style={styles.profileSection}>
-                    <Text style={styles.heading2}>Staff ID: {staffMember.StaffId}</Text>
-                    <Text style={styles.heading2}>Name: {staffMember.Name}</Text>
-                    <Text style={styles.normalText}>Phone: {staffMember.Phone}</Text>
-                    <Text style={styles.normalText}>Department: {staffMember.Department}</Text>
-                    <Text style={styles.normalText}>Street: {staffMember.Address.Street}</Text>
-                    <Text style={styles.normalText}>City: {staffMember.Address.City}</Text>
-                    <Text style={styles.normalText}>State: {staffMember.Address.State}</Text>
-                    <Text style={styles.normalText}>ZIP: {staffMember.Address.ZIP}</Text>
-                    <Text style={styles.normalText}>Country: {staffMember.Address.Country}</Text>
+                    <Text style={[styles.heading2, { fontSize: textSize }]}>{`Staff ID: ${staffMember.StaffId}`}</Text>
+                    <Text style={[styles.heading2, { fontSize: textSize }]}>{`Name: ${staffMember.Name}`}</Text>
+                    <Text style={[styles.normalText, { fontSize: textSize }]}>{`Phone: ${staffMember.Phone}`}</Text>
+                    <Text style={[styles.normalText, { fontSize: textSize }]}>{`Department: ${staffMember.Department}`}</Text>
+                    <Text style={[styles.normalText, { fontSize: textSize }]}>{`Street: ${staffMember.Address.Street}`}</Text>
+                    <Text style={[styles.normalText, { fontSize: textSize }]}>{`City: ${staffMember.Address.City}`}</Text>
+                    <Text style={[styles.normalText, { fontSize: textSize }]}>{`State: ${staffMember.Address.State}`}</Text>
+                    <Text style={[styles.normalText, { fontSize: textSize }]}>{`ZIP: ${staffMember.Address.ZIP}`}</Text>
+                    <Text style={[styles.normalText, { fontSize: textSize }]}>{`Country: ${staffMember.Address.Country}`}</Text>
+
                 </View>
             </ScrollView>
 

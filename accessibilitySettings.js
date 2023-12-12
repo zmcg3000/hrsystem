@@ -3,6 +3,8 @@ import { Modal, View, Text, Switch, Button } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { styles } from './mobileStyles';
 import { SettingsContext } from './settingsContext';
+import * as Brightness from 'expo-brightness';
+import { Audio } from 'expo-av';
 
 const AccessibilitySettings = ({ isVisible, onClose }) => {
     // Access global settings from context
@@ -23,10 +25,14 @@ const AccessibilitySettings = ({ isVisible, onClose }) => {
     };
 
     // Handler for changing screen brightness
-    const handleBrightnessChange = (newBrightness) => {
-        // Log new brightness
+    const handleBrightnessChange = async (newBrightness) => {
         console.log('handleBrightnessChange - newBrightness:', newBrightness);
         setBrightness(newBrightness);
+        try {
+            await Brightness.setBrightnessAsync(newBrightness);
+        } catch (error) {
+            console.error("Failed to change brightness:", error);
+        }
     };
 
     // Toggle for enabling or disabling sound effects
@@ -51,6 +57,19 @@ const AccessibilitySettings = ({ isVisible, onClose }) => {
         setBrightness(settings.brightness);
         setSoundEnabled(settings.soundEnabled);
     }, [settings]);
+
+    // Function to manage sound playback
+    const playSound = async (soundFile) => {
+        if (soundEnabled) {
+            try {
+                const { sound } = await Audio.Sound.createAsync(soundFile);
+                await sound.playAsync();
+                sound.unloadAsync();
+            } catch (error) {
+                console.error("Error playing sound:", error);
+            }
+        }
+    };
 
     // Component render
     return (

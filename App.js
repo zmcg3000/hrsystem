@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, Pressable, Dimensions } from 'react-native';
+import { View, Image, Pressable, Dimensions, LogBox } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,6 +13,8 @@ import * as Font from 'expo-font';
 import AccessibilitySettings from './accessibilitySettings';
 import { SettingsProvider } from './settingsContext';
 import * as ScreenOrientation from 'expo-screen-orientation';
+
+LogBox.ignoreLogs(['new NativeEventEmitter']);
 
 const Stack = createNativeStackNavigator();
 
